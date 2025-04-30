@@ -32,6 +32,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
           className="project-link btn btn--small"
           onClick={() => onSelect(project.id)}
           aria-controls={`${project.id}-modal`}
+          aria-haspopup="dialog"
         >
           Vedi case study <span aria-hidden="true">→</span>
         </button>

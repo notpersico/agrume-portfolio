@@ -6,9 +6,12 @@
   --sat-primary: 92%;
   --lum-primary: 55%;
 
+  /* Primary palette */
   --clr-primary: hsl(var(--hue-primary) var(--sat-primary) var(--lum-primary));
   --clr-primary-tint: hsl(var(--hue-primary) var(--sat-primary) 68%);
   --clr-primary-shade: hsl(var(--hue-primary) var(--sat-primary) 40%);
+  
+  /* UI colors */
   --clr-bg: #faf9f7;
   --clr-surface: rgba(255, 255, 255, 0.6);  /* glass */
   --clr-glare: rgba(255, 255, 255, 0.35);
@@ -16,19 +19,26 @@
   --clr-gray: #888888;
   --clr-light-gray: #E8E8E8;
 
-  /* Typography scale with clamp() */
-  --fs-300: clamp(0.85rem, calc(0.85rem + 0.15vw), 0.95rem);
-  --fs-400: clamp(0.95rem, calc(0.9rem + 0.3vw), 1.05rem);
-  --fs-500: clamp(1.15rem, calc(1.1rem + 0.5vw), 1.35rem);
-  --fs-600: clamp(1.5rem, calc(1.3rem + 1vw), 2.3rem);
-  --fs-700: clamp(2.2rem, calc(1.8rem + 2vw), 3.8rem);
+  /* Typography scale (rem-based for accessibility) */
+  --fs-300: clamp(0.85rem, calc(0.85rem + 0.15vw), 0.95rem);  /* Small text */
+  --fs-400: clamp(0.95rem, calc(0.9rem + 0.3vw), 1.05rem);    /* Body text */
+  --fs-500: clamp(1.15rem, calc(1.1rem + 0.5vw), 1.35rem);    /* Subheadings */
+  --fs-600: clamp(1.5rem, calc(1.3rem + 1vw), 2.3rem);        /* Headings */
+  --fs-700: clamp(2.2rem, calc(1.8rem + 2vw), 3.8rem);        /* Hero headings */
 
-  /* Spacing */
+  /* Spacing scale (rem-based for consistency) */
   --space-xs: clamp(0.5rem, 0.5vw, 0.75rem);
   --space-sm: clamp(0.75rem, 1vw, 1rem);
   --space-md: clamp(1.5rem, 2vw, 2rem);
   --space-lg: clamp(2rem, 4vw, 4rem);
   --space-xl: clamp(3rem, 6vw, 6rem);
+
+  /* Standard border-radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
 
   /* Motion & Animation */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -38,6 +48,17 @@
   
   /* For parallax effect */
   --parallax: 0deg;
+
+  /* Standard button sizes */
+  --btn-padding-sm: 0.5rem 1rem;
+  --btn-padding-md: 0.75rem 1.5rem;
+  --btn-padding-lg: 1rem 2.5rem;
+
+  /* Standardized breakpoints */
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
 }
 
 /* Dark Mode */
@@ -68,6 +89,7 @@ html.dark {
 
 html {
   scroll-behavior: smooth;
+  font-size: 16px; /* Baseline font size for rem calculations */
 }
 
 body {
@@ -76,6 +98,7 @@ body {
   background-color: var(--clr-bg);
   line-height: 1.6;
   overflow-x: hidden;
+  text-rendering: optimizeSpeed;
 }
 
 h1, h2, h3, h4, h5 {
@@ -154,7 +177,7 @@ ul {
 
 .surface {
   background: var(--clr-surface);
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--clr-glare);
   transition: background-color var(--trans-mid);
 }
@@ -180,10 +203,12 @@ ul {
 .btn {
   --btn-bg: var(--clr-primary);
   --btn-text: white;
-  --btn-padding: 0.75rem 1.5rem;
-  --btn-radius: 8px;
+  --btn-padding: var(--btn-padding-md);
+  --btn-radius: var(--radius-md);
   
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: var(--btn-bg);
   color: var(--btn-text);
   padding: var(--btn-padding);
@@ -191,7 +216,7 @@ ul {
   border: none;
   font-weight: 500;
   text-align: center;
-  min-height: 44px;
+  min-height: 44px; /* Minimum touch target size */
   min-width: 44px;
   transition: transform var(--trans-fast), 
               box-shadow var(--trans-fast),
@@ -211,9 +236,15 @@ ul {
 }
 
 .btn--small {
-  --btn-padding: 0.5rem 1rem;
-  --btn-radius: 6px;
+  --btn-padding: var(--btn-padding-sm);
+  --btn-radius: var(--radius-sm);
   font-size: 0.9rem;
+}
+
+.btn--large {
+  --btn-padding: var(--btn-padding-lg);
+  --btn-radius: var(--radius-full);
+  font-size: 1.1rem;
 }
 
 /* Animation Classes */
@@ -269,20 +300,34 @@ ul {
 }
 
 /* Responsive utilities */
-@media (max-width: 992px) {
+@media (max-width: var(--breakpoint-lg)) {
   .hide-tablet {
     display: none !important;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: var(--breakpoint-md)) {
   .hide-mobile {
     display: none !important;
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: calc(var(--breakpoint-md) + 1px)) {
   .show-mobile {
     display: none !important;
+  }
+}
+
+/* Container width adjustments based on screen size */
+@media (max-width: var(--breakpoint-sm)) {
+  .container {
+    padding: 0 var(--space-sm);
+  }
+}
+
+/* Responsive font sizing adjustments for very small screens */
+@media (max-width: 350px) {
+  html {
+    font-size: 14px;
   }
 }

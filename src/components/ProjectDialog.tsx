@@ -120,6 +120,7 @@ export const ProjectDialog: React.FC<ProjectDialogProps> = ({ projectId, onClose
             className="modal-image"
             width="1000" 
             height="450"
+            fetchpriority="high"
           />
           <div className="modal-details">
             <span className="modal-category">{project.categoryLabel}</span>
@@ -128,9 +129,12 @@ export const ProjectDialog: React.FC<ProjectDialogProps> = ({ projectId, onClose
               {project.description}
             </p>
             {project.challenge && (
-              <p className="modal-description">
-                {project.challenge}
-              </p>
+              <div>
+                <h3 className="modal-subtitle">La sfida</h3>
+                <p className="modal-description">
+                  {project.challenge}
+                </p>
+              </div>
             )}
             <div className="modal-features">
               <h4>Elementi sviluppati</h4>
@@ -143,9 +147,12 @@ export const ProjectDialog: React.FC<ProjectDialogProps> = ({ projectId, onClose
               </ul>
             </div>
             {project.results && (
-              <p className="modal-description">
-                {project.results}
-              </p>
+              <div>
+                <h3 className="modal-subtitle">Risultati</h3>
+                <p className="modal-description">
+                  {project.results}
+                </p>
+              </div>
             )}
             
             <div className="modal-gallery">
@@ -158,6 +165,7 @@ export const ProjectDialog: React.FC<ProjectDialogProps> = ({ projectId, onClose
                       alt={img.alt}
                       width="350" 
                       height="200"
+                      loading="lazy"
                     />
                   </div>
                 ))}
