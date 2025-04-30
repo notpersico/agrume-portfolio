@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ProjectCard } from './ProjectCard';
 import { ProjectDialog } from './ProjectDialog';
 import { projectData } from '../data/projectData';
-import '../styles/portfolio.css';
 
 export const Portfolio: React.FC = () => {
   const [filter, setFilter] = useState('all');
@@ -158,11 +157,11 @@ export const Portfolio: React.FC = () => {
   ];
   
   return (
-    <section className="portfolio" id="portfolio">
+    <section className="py-lg pb-xl" id="portfolio">
       <div className="container">
         {/* Filter Tabs */}
         <div 
-          className="filter-tabs" 
+          className="filter-tabs"
           role="tablist" 
           aria-label="Filtra progetti per categoria"
           ref={filterTabsRef}
@@ -183,11 +182,11 @@ export const Portfolio: React.FC = () => {
               {category.label}
             </button>
           ))}
-          <span className="filter-underline" aria-hidden="true" ref={underlineRef}></span>
+          <span className="absolute bottom-[0.1rem] left-0 h-1 w-0 bg-primary rounded transition-all duration-300 ease-out-expo pointer-events-none z-[2] shadow-[0_2px_8px_rgba(0,0,0,0.10)]" aria-hidden="true" ref={underlineRef}></span>
         </div>
         
         {/* Projects Grid */}
-        <div className="projects-grid" id="projects-container">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-6" id="projects-container">
           {filteredProjects.map(project => (
             <ProjectCard 
               key={project.id}

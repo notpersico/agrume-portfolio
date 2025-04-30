@@ -3,7 +3,6 @@ import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Portfolio } from './components/Portfolio';
 import { Footer } from './components/Footer';
-import './styles/index.css';
 
 function App() {
   useEffect(() => {

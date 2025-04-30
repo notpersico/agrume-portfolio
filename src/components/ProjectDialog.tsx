@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import { projectData } from '../data/projectData';
-import '../styles/dialog.css';
 
 interface ProjectDialogProps {
   projectId: string;
@@ -96,7 +95,7 @@ export const ProjectDialog: React.FC<ProjectDialogProps> = ({ projectId, onClose
   return (
     <dialog 
       id={`${project.id}-modal`} 
-      className="project-dialog surface"
+      className="project-dialog"
       ref={dialogRef}
       onClick={handleDialogClick}
       role="dialog" 
@@ -104,7 +103,7 @@ export const ProjectDialog: React.FC<ProjectDialogProps> = ({ projectId, onClose
       aria-labelledby={`${project.id}-modal-title`} 
       aria-describedby={`${project.id}-modal-desc`}
     >
-      <form method="dialog">
+      <form method="dialog" className="w-full h-full">
         <button 
           className="dialog-close" 
           aria-label="Chiudi"
@@ -120,7 +119,7 @@ export const ProjectDialog: React.FC<ProjectDialogProps> = ({ projectId, onClose
             className="modal-image"
             width="1000" 
             height="450"
-            fetchpriority="high"
+            fetchPriority="high"
           />
           <div className="modal-details">
             <span className="modal-category">{project.categoryLabel}</span>
@@ -136,12 +135,12 @@ export const ProjectDialog: React.FC<ProjectDialogProps> = ({ projectId, onClose
                 </p>
               </div>
             )}
-            <div className="modal-features">
-              <h4>Elementi sviluppati</h4>
-              <ul className="features-list">
+            <div className="mb-8">
+              <h4 className="text-xl mb-4 text-content-light dark:text-content-dark">Elementi sviluppati</h4>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {project.features.map((feature, idx) => (
-                  <li key={idx}>
-                    <span aria-hidden="true">✓</span> {feature}
+                  <li key={idx} className="flex items-center gap-3">
+                    <span aria-hidden="true" className="text-primary font-bold">✓</span> {feature}
                   </li>
                 ))}
               </ul>
@@ -155,17 +154,18 @@ export const ProjectDialog: React.FC<ProjectDialogProps> = ({ projectId, onClose
               </div>
             )}
             
-            <div className="modal-gallery">
-              <h4>Gallery del progetto</h4>
-              <div className="gallery-grid">
+            <div className="mt-12">
+              <h4 className="text-xl mb-6 text-content-light dark:text-content-dark">Gallery del progetto</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {project.gallery.map((img, idx) => (
-                  <div key={idx} className="gallery-item">
+                  <div key={idx} className="rounded-md overflow-hidden h-[200px] shadow-md">
                     <img 
                       src={img.src} 
                       alt={img.alt}
                       width="350" 
                       height="200"
                       loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-mid hover:scale-105"
                     />
                   </div>
                 ))}

@@ -29,12 +29,12 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onSelect }) =
           ))}
         </div>
         <button 
-          className="project-link btn btn--small"
+          className="project-link btn"
           onClick={() => onSelect(project.id)}
           aria-controls={`${project.id}-modal`}
           aria-haspopup="dialog"
         >
-          Vedi case study <span aria-hidden="true">→</span>
+          Vedi case study <span aria-hidden="true" className="ml-1">→</span>
         </button>
       </div>
     </article>
