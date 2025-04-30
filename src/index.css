@@ -107,11 +107,11 @@
   }
   
   .project-info h3 {
-    @apply text-500 mb-2 text-content-light dark:text-content-dark font-semibold;
+    @apply text-lg mb-2 text-content-light dark:text-content-dark font-semibold;
   }
   
   .project-info p {
-    @apply text-gray-custom mb-4 text-300 leading-relaxed line-clamp-3;
+    @apply text-gray-custom mb-4 text-xs leading-relaxed line-clamp-3;
   }
   
   .project-tags {
@@ -190,15 +190,15 @@
   }
   
   .modal-title {
-    @apply text-600 mb-5 font-semibold text-content-light dark:text-content-dark;
+    @apply text-xl mb-5 font-semibold text-content-light dark:text-content-dark;
   }
   
   .modal-subtitle {
-    @apply text-500 mt-6 mb-3 text-content-light dark:text-content-dark font-semibold;
+    @apply text-lg mt-6 mb-3 text-content-light dark:text-content-dark font-semibold;
   }
   
   .modal-description {
-    @apply mb-6 text-gray-custom leading-relaxed text-400;
+    @apply mb-6 text-gray-custom leading-relaxed text-base;
   }
   
   /* Accessibility */

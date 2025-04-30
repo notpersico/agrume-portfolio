@@ -36,11 +36,13 @@ export default {
         serif: ['Playfair Display', 'ui-serif', 'Georgia', 'serif'],
       },
       fontSize: {
-        '300': 'clamp(0.85rem, calc(0.85rem + 0.15vw), 0.95rem)',
-        '400': 'clamp(0.95rem, calc(0.9rem + 0.3vw), 1.05rem)',
-        '500': 'clamp(1.15rem, calc(1.1rem + 0.5vw), 1.35rem)',
-        '600': 'clamp(1.5rem, calc(1.3rem + 1vw), 2.3rem)',
-        '700': 'clamp(2.2rem, calc(1.8rem + 2vw), 3.8rem)',
+        // Changed from numbered keys to descriptive names to avoid confusion
+        xs: 'clamp(0.85rem, calc(0.85rem + 0.15vw), 0.95rem)',
+        sm: 'clamp(0.95rem, calc(0.9rem + 0.3vw), 1.05rem)',
+        base: 'clamp(1.05rem, calc(1rem + 0.25vw), 1.15rem)',
+        lg: 'clamp(1.15rem, calc(1.1rem + 0.5vw), 1.35rem)',
+        xl: 'clamp(1.5rem, calc(1.3rem + 1vw), 2.3rem)',
+        '2xl': 'clamp(2.2rem, calc(1.8rem + 2vw), 3.8rem)',
       },
       spacing: {
         'xs': 'clamp(0.5rem, 0.5vw, 0.75rem)',
@@ -81,6 +83,22 @@ export default {
       backgroundImage: {
         'hero': "url('https://images.unsplash.com/photo-1557682250-33bd709cbe85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2329&q=80')",
       },
+      borderRadius: {
+        DEFAULT: '0.25rem',
+        'sm': '0.375rem',
+        'md': '0.5rem',
+        'lg': '0.75rem',
+        'xl': '1rem',
+        '2xl': '1.5rem',
+      },
+    },
+    // Adding theme-level screens for better responsive control
+    screens: {
+      'sm': '480px',
+      'md': '768px',
+      'lg': '992px',
+      'xl': '1200px',
+      '2xl': '1400px',
     },
   },
   plugins: [],

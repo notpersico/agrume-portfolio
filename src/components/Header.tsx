@@ -37,7 +37,7 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className={`bg-surface-light dark:bg-surface-dark sticky top-0 z-50 py-sm transition-all duration-mid backdrop-blur-md border-b border-glare-light dark:border-glare-dark ${scrolled ? 'py-xs shadow-md border-b-0' : ''}`}>
+    <header className={`bg-surface-light dark:bg-surface-dark sticky top-0 z-50 py-sm backdrop-blur-md border-b border-glare-light dark:border-glare-dark transition-all duration-mid ${scrolled ? 'py-xs shadow-md border-b-0' : ''}`}>
       <div className="container">
         <div className="flex justify-between items-center py-2 relative">
           <a href="/" className="text-[clamp(1.6rem,5vw,2rem)] font-bold text-primary font-serif z-[101] transition-all duration-fast flex items-center gap-2 p-2 rounded-md hover:scale-105 hover:text-primary-dark focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-4">
