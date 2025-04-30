@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+:root {
+  /* HSL color system for easy theme adjustments */
+  --hue-primary: 18;
+  --sat-primary: 92%;
+  --lum-primary: 55%;
+
+  --clr-primary: hsl(var(--hue-primary) var(--sat-primary) var(--lum-primary));
+  --clr-primary-tint: hsl(var(--hue-primary) var(--sat-primary) 68%);
+  --clr-primary-shade: hsl(var(--hue-primary) var(--sat-primary) 40%);
+  --clr-bg: #faf9f7;
+  --clr-surface: rgba(255, 255, 255, 0.6);  /* glass */
+  --clr-glare: rgba(255, 255, 255, 0.35);
+  --clr-dark: #1E2D2F;
+  --clr-gray: #888888;
+  --clr-light-gray: #E8E8E8;
+
+  /* Typography scale with clamp() */
+  --fs-300: clamp(0.85rem, calc(0.85rem + 0.15vw), 0.95rem);
+  --fs-400: clamp(0.95rem, calc(0.9rem + 0.3vw), 1.05rem);
+  --fs-500: clamp(1.15rem, calc(1.1rem + 0.5vw), 1.35rem);
+  --fs-600: clamp(1.5rem, calc(1.3rem + 1vw), 2.3rem);
+  --fs-700: clamp(2.2rem, calc(1.8rem + 2vw), 3.8rem);
+
+  /* Spacing */
+  --space-xs: clamp(0.5rem, 0.5vw, 0.75rem);
+  --space-sm: clamp(0.75rem, 1vw, 1rem);
+  --space-md: clamp(1.5rem, 2vw, 2rem);
+  --space-lg: clamp(2rem, 4vw, 4rem);
+  --space-xl: clamp(3rem, 6vw, 6rem);
+
+  /* Motion & Animation */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --trans-fast: 150ms var(--ease-out);
+  --trans-mid: 300ms var(--ease-out);
+  --trans-slow: 500ms var(--ease-out);
+  
+  /* For parallax effect */
+  --parallax: 0deg;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --clr-bg: #131516;
+    --clr-surface: rgba(32, 33, 36, 0.6);
+    --clr-glare: rgba(255, 255, 255, 0.08);
+    --clr-dark: #F9F7F3;
+    --clr-light-gray: #444444;
+  }
+}
+
+html.dark {
+  --clr-bg: #131516;
+  --clr-surface: rgba(32, 33, 36, 0.6);
+  --clr-glare: rgba(255, 255, 255, 0.08);
+  --clr-dark: #F9F7F3;
+  --clr-light-gray: #444444;
+}
+
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--clr-dark);
+  background-color: var(--clr-bg);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: var(--clr-primary);
+  transition: color var(--trans-fast);
+}
+
+a:hover {
+  color: var(--clr-primary-shade);
+}
+
+button {
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Smart Heading Rhythm with :where() */
+:where(h1, h2, h3, p, ul, .btn) + :where(h1, h2, h3, p, ul, .btn) {
+  margin-top: 1em;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--clr-primary);
+  color: white;
+  padding: 8px;
+  z-index: 1001;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+  width: 100%;
+}
+
+.surface {
+  background: var(--clr-surface);
+  border-radius: 14px;
+  border: 1px solid var(--clr-glare);
+  transition: background-color var(--trans-mid);
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .surface {
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .surface {
+    background: rgba(255, 255, 255, 0.95);
+  }
+  .dark .surface {
+    background: rgba(29, 30, 32, 0.95);
+  }
+}
+
+/* Button Styles */
+.btn {
+  --btn-bg: var(--clr-primary);
+  --btn-text: white;
+  --btn-padding: 0.75rem 1.5rem;
+  --btn-radius: 8px;
+  
+  display: inline-block;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  padding: var(--btn-padding);
+  border-radius: var(--btn-radius);
+  border: none;
+  font-weight: 500;
+  text-align: center;
+  min-height: 44px;
+  min-width: 44px;
+  transition: transform var(--trans-fast), 
+              box-shadow var(--trans-fast),
+              background-color var(--trans-fast);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  color: var(--btn-text);
+}
+
+.btn--secondary {
+  --btn-bg: transparent;
+  --btn-text: var(--clr-primary);
+  box-shadow: inset 0 0 0 2px currentColor;
+}
+
+.btn--small {
+  --btn-padding: 0.5rem 1rem;
+  --btn-radius: 6px;
+  font-size: 0.9rem;
+}
+
+/* Animation Classes */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s var(--ease-out) forwards;
+}
+
+.fade-out {
+  animation: fadeIn 0.5s var(--ease-out) reverse forwards;
+}
+
+/* Hidden State */
+.hidden {
+  display: none;
+}
+
+/* For reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .hero__art {
+    transform: none !important;
+  }
+  
+  .project-card {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive utilities */
+@media (max-width: 992px) {
+  .hide-tablet {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .show-mobile {
+    display: none !important;
+  }
+}
