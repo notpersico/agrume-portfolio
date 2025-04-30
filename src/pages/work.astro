@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+import ContactCTA from '../components/ContactCTA.astro';
+import PortfolioPreview from '../components/PortfolioPreview.astro';
+import Hero from '../components/Hero.astro';
+import Grid from '../components/Grid.astro';
+
+// Fetch all projects, sorted by date
+const allProjects = (await getCollection('work')).sort(
+	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+);
+
+// Group projects by category using the frontmatter
+const categories = [
+	"Strategie di Marketing Digitale",
+	"Identità Visiva e Branding",
+	"Sviluppo Web e Piattaforme Digitali"
+];
+
+const groupedProjects = categories.map(category => ({
+	category,
+	projects: allProjects.filter(project => project.data.category === category)
+}));
+
+---
+
+<BaseLayout
+	title="Portfolio Case Study | Agenzia Agrume"
+	description="Esplora i case study di Agrume divisi per categoria."
+>
+	<div class="stack gap-20">
+		<main class="wrapper stack gap-12">
+			<Hero
+				title="Portfolio Case Study"
+				tagline="Esplora una selezione dei nostri progetti, divisi per area di competenza."
+				align="start"
+			/>
+
+			{groupedProjects.map(({ category, projects }) => (
+				projects.length > 0 && (
+					<section class="stack gap-8">
+						<header>
+							<h2 class="section-title">{category}</h2>
+						</header>
+						<Grid variant="offset">
+							{projects.map((project) => (
+								<li>
+									<PortfolioPreview project={project} />
+								</li>
+							))}
+						</Grid>
+					</section>
+				)
+			))}
+
+		</main>
+		<ContactCTA />
+	</div>
+</BaseLayout>
+
+<style>
+	.section-title {
+		font-size: var(--text-xl);
+		color: var(--gray-0);
+		margin-bottom: 1rem; /* Add some space below category title */
+	}
+
+	@media (min-width: 50em) {
+		.section-title {
+			font-size: var(--text-2xl);
+		}
+	}
+</style>
