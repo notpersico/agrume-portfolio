@@ -1,3 +1,105 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --parallax: 0deg;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    @apply font-sans text-base;
+  }
+  
+  body {
+    @apply bg-[#faf9f7] text-[#1E2D2F] dark:bg-[#131516] dark:text-[#F9F7F3] overflow-x-hidden;
+  }
+  
+  h1, h2, h3, h4, h5 {
+    @apply font-serif font-semibold leading-tight;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-[1400px] mx-auto px-md w-full;
+  }
+  
+  .surface {
+    @apply bg-white/60 dark:bg-[#202124]/60 rounded-lg border border-white/35 dark:border-white/8 transition-colors;
+    @apply backdrop-blur-lg backdrop-saturate-[1.2] shadow-lg;
+  }
+  
+  .btn {
+    @apply inline-flex items-center justify-center bg-primary text-white px-6 py-3 rounded-md font-medium;
+    @apply min-h-[44px] min-w-[44px] transition duration-150 ease-out-expo;
+    @apply hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply bg-transparent text-primary box-border border-2 border-current;
+  }
+  
+  .btn-small {
+    @apply px-4 py-2 rounded-md text-sm;
+  }
+  
+  .btn-large {
+    @apply px-10 py-4 rounded-full text-lg;
+  }
+  
+  .hero__art {
+    @apply absolute inset-0 transform rotate-[var(--parallax)] transition-transform duration-800 ease-out-expo -z-10 opacity-40;
+  }
+  
+  /* Accessibility classes */
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+  }
+  
+  .skip-link {
+    @apply absolute -top-10 left-0 bg-primary text-white p-2 z-[1001] transition-all duration-300 focus:top-0;
+  }
+}
+
+@layer utilities {
+  .ease-out-expo {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+/* For reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .hero__art {
+    transform: none !important;
+  }
+  
+  .project-card {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
